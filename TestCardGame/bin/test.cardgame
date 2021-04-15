@@ -1,0 +1,56 @@
+Game test
+Properties{
+	power,
+	suit
+}
+Card km {
+	suit:1,
+	power:0
+}
+Card Spades1 {
+	power:1,
+	suit:2	
+}
+Card Dimonds1 {
+	power:1,
+	suit:3	
+}
+Card Dimonds2 {
+	power:2,
+	suit:3	
+}
+HoleCardNumber (2)
+GameRule{
+	EqualRule r1 {
+		ComparedCardsNum 2
+		ComparedItem suit
+		level 1
+	},
+	EqualRule r2{
+		ComparedCardsNum 2
+		ComparedItem power
+		level 2
+	},
+	SingleRule s1{
+		Player No.1 power isBiggerThan Computer No.1
+		level 3
+	},
+	SingleRule s2{
+		Player No.1 power isBiggerThan Computer No.1
+		level 4
+	}
+	
+//	DrawRule r1{
+//		EqualRule r11 {
+//			ComparedCardsNum 2
+//			ComparedItem suit
+//			level 1
+//		}
+//	},
+//	DrawRule s2{
+//		SingleRule s22{
+//			Player No.3 power isBiggerThan Computer No.3
+//			level 4
+//		}
+//	}
+}

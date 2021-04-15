@@ -1,0 +1,55 @@
+grammar uk.ac.kcl.inf.cardgame.CardGameLanguage with org.eclipse.xtext.common.Terminals
+
+generate cardGameLanguage "http://www.ac.uk/kcl/inf/cardgame/CardGameLanguage"
+
+CardGame:
+ 'Game' name=ID 
+ ('Properties' '{' cardpropertytypes+=CardPropertyType (',' cardpropertytypes+=CardPropertyType)* '}')?
+ cards+=Card*
+ 'HoleCardNumber' '(' number=INT ')'
+ ('GameRule' '{' rule+=GameRule (',' rule+=GameRule)* '}')?
+;
+
+Card:
+ 'Card' name=ID '{' definition+=CardProperty (',' definition+=CardProperty)* '}'?
+;
+CardProperty:
+ type=[CardPropertyType] (':' value=INT)?;
+
+CardPropertyType:
+ name=ID;
+
+GameRule:
+ SingleRule | EqualRule
+;
+
+SingleRule:
+ 'SingleRule' name=ID '{'
+  role1=PlayerRole 'No.' number1=INT item=[CardPropertyType] keyword=ExpressionKeyword role2=PlayerRole 'No.' (number2=INT)?
+  'level' level=INT
+ '}'
+;
+
+ 
+EqualRule:
+ 'EqualRule' name=ID '{'
+  'ComparedCardsNum' number=INT
+  'ComparedItem' item=[CardPropertyType]
+  'level' level=INT
+ '}'
+;
+
+//DrawRule:
+// 'DrawRule' rule=[NonDrawRule] '{'
+////  'ComparedCardsNum' num=IntLiteral 
+////  'ComparedItem' item=[CardPropertyType]
+//  newrule=NonDrawRule
+// '}'
+//;
+
+enum ExpressionKeyword:
+ isBiggerThan | isSmallerThan | isEqualTo;
+ 
+enum PlayerRole:
+ Player | Computer 
+;
